@@ -1,10 +1,17 @@
 require 'war_room/list_parser/version'
+require 'war_room/list_parser/invalid_list_exception'
 require 'parslet'
 
 module WarRoom
   class ListParser < Parslet::Parser
     def self.section_repeat(rule_name, section_item)
       rule(rule_name) { (send(section_item) >> newline).repeat >> newline }
+    end
+
+    def parse(io, options = {})
+      super io, options
+    rescue Parslet::ParseFailed => e
+      raise InvalidListException
     end
 
     rule(:number)              { match('\d').repeat(1, nil) }
