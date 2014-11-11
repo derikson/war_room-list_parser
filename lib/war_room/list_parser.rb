@@ -3,8 +3,8 @@ require 'parslet'
 
 module WarRoom
   class ListParser < Parslet::Parser
-    def self.section_repeat(section_item)
-      rule(:"#{section_item.to_s.pluralize}") { (send(section_item) >> newline).repeat >> newline }
+    def self.section_repeat(rule_name, section_item)
+      rule(rule_name) { (send(section_item) >> newline).repeat >> newline }
     end
 
     rule(:number)              { match('\d').repeat(1, nil) }
@@ -34,17 +34,17 @@ module WarRoom
     rule(:warnoun)             { before_hyphen.as(:name) >> hyphen >> (str('WB: +') | str('WJ: +')) >> match('\d').repeat(1, nil).as(:points) >> newline }
     rule(:warnoun_attachment)  { str('-') >> space >> (match['^\r\n'] >> str('PC:').absent?).repeat(1, nil).as(:name) >> newline }
     rule(:warbj)               { str('-') >> space >> before_hyphen.as(:name) >> hyphen >> pc }
-    section_repeat(:warbj)
+    section_repeat(:warbjs, :warbj)
 
     rule(:battle_engine)       { before_hyphen.as(:name) >> hyphen >> pc }
-    section_repeat(:battle_engine)
+    section_repeat(:battle_engines, :battle_engine)
 
     rule(:solo)                { before_hyphen.as(:name) >> hyphen >> pc }
-    section_repeat(:solo)
+    section_repeat(:solos, :solo)
 
     rule(:unit)                { str('-').absent? >> before_hyphen.as(:name) >> hyphen >> (pc | descriptor_and_cost) >> (newline >> unit_attachment).repeat.as(:unit_attachments) }
     rule(:unit_attachment)     { str('-') >> space >> before_hyphen.as(:name) >> hyphen >> (pc | descriptor_and_cost) }
-    section_repeat(:unit)
+    section_repeat(:units, :unit)
 
     rule(:rest)                { any.repeat }
 
