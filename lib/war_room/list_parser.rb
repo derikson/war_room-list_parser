@@ -13,7 +13,11 @@ module WarRoom
     rescue Parslet::ParseFailed => e
       raise InvalidListException
     else
-      raise InvalidListException if @result[:warnoun].nil? && @result[:battle_engines].empty? && @result[:units].empty? && @result[:solos].empty?
+      raise InvalidListException unless @result[:warnoun] || @result[:battle_engines] || @result[:units] || (@result[:solos] && !@result[:solos].empty?)
+      @result[:warbjs]         ||= []
+      @result[:battle_engines] ||= []
+      @result[:solos]          ||= []
+      @result[:units]          ||= []
       @result
     end
 
@@ -35,26 +39,27 @@ module WarRoom
     rule(:title)               { match['^\n\r'].repeat(1, nil) }
 
     rule(:totals)              { number >> str(' / ') >> number >> space >> str('(') >> number >> str('+') >> number >> str(')') >> space >>
-                                 (str('Warcaster(s)') | str('Warlock(s)')) >> space >> str(':') >> space >> number >> str('/') >> number >> space >>
+                                 (str('Warcaster(s)') | str('Warlock(s)')) >> space >> str(':') >> space >> number.as(:warnouns) >> str('/') >> number >> space >>
                                  (str('Warjack(s)') | str('Warbeast(s)')) >> space >> str(':') >> space >> number >> space >>
-                                 str('Battle Engines') >> space >> str(':') >> space >> number >> space >>
-                                 str('Solos') >> space >> str(':') >> space >> number >> space >>
-                                 str('Units') >> space >> str(':') >> space >> number >> empty_line }
+                                 str('Battle Engines') >> space >> str(':') >> space >> number.as(:battle_engines) >> space >>
+                                 str('Solos') >> space >> str(':') >> space >> number.as(:solos) >> space >>
+                                 str('Units') >> space >> str(':') >> space >> number.as(:units) >> empty_line }
 
     rule(:battlegroup_and_attachment) { warnoun.as(:warnoun) >>
-                                        warnoun_attachment.maybe.as(:warnoun_attachment) >>
-                                        warbjs.repeat(0,1).as(:warbjs) }
+                                        warnoun_attachment.maybe.capture(:warnoun_attachment).as(:warnoun_attachment) >>
+                                        warbjs.repeat(0,1).as(:warbjs) >> newline }
 
 
     rule(:warnoun)             { before_hyphen.as(:name) >> hyphen >> (str('WB: +') | str('WJ: +')) >> match('\d').repeat(1, nil).as(:points) >> newline }
     rule(:warnoun_attachment)  { str('-') >> space >> (match['^\r\n'] >> str('PC:').absent?).repeat(1, nil).as(:name) >> newline }
     rule(:warbj)               { str('-') >> space >> before_hyphen.as(:name) >> hyphen >> pc }
-    section_repeat(:warbjs, :warbj)
+    rule(:warbjs)              { (warbj >> newline).repeat }
 
     rule(:battle_engine)       { before_hyphen.as(:name) >> hyphen >> pc }
     section_repeat(:battle_engines, :battle_engine)
 
-    rule(:solo)                { before_hyphen.as(:name) >> hyphen >> pc }
+    rule(:solo)                { str('-').absent? >> before_hyphen.as(:name) >> hyphen >> pc >> (newline >> unit_attachment).repeat.as(:solo_attachments) }
+    rule(:solo_attachment)     { str('-') >> space >> before_hyphen.as(:name) >> hyphen >> pc }
     section_repeat(:solos, :solo)
 
     rule(:unit)                { str('-').absent? >> before_hyphen.as(:name) >> hyphen >> (pc | descriptor_and_cost) >> (newline >> unit_attachment).repeat.as(:unit_attachments) }
@@ -78,11 +83,16 @@ module WarRoom
 
     rule(:warroom_list)        { warroom_header >>
                                  faction.as(:faction) >> hyphen >> title.as(:title) >> empty_line >>
-                                 totals >>
-                                 battlegroup_and_attachment.maybe >>
-                                 battle_engines.repeat(0,1).as(:battle_engines) >>
-                                 solos.repeat(0,1).as(:solos) >>
-                                 units.repeat(0,1).as(:units) >>
+                                 totals.capture(:totals).as(:totals) >>
+                                 dynamic { |s, c| c.captures[:totals][:warnouns]       != '0' ? battlegroup_and_attachment         : str('') } >>
+                                 dynamic { |s, c| c.captures[:totals][:battle_engines] != '0' ? battle_engines.as(:battle_engines) : str('') } >>
+                                 dynamic do |source, context|
+                                   warnoun_attachment = (context.captures[:totals][:warnouns] != '0') && (context.captures[:warnoun_attachment] != '')
+                                   solos_total = context.captures[:totals][:solos].to_i - (warnoun_attachment ? 1 : 0)
+                                   # War Room bug treats warnoun attachments as solos only sometimes
+                                   solos_total != 0 ? solos.repeat(0,1).as(:solos) : str('')
+                                 end >>
+                                 dynamic { |s, c| c.captures[:totals][:units]          != '0' ? units.as(:units)                   : str('') } >>
                                  theme.maybe.as(:theme) >>
                                  str('--') >>
                                  rest }

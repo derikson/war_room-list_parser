@@ -22,6 +22,14 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
       """
     When I parse the list
     Then I should get a parsed list
+    And I should get 0 warnouns
+    And I should not get a warnoun attachment
+    And I should get 0 warbjs
+    And I should get 0 battle engines
+    And I should get 0 solos
+    And I should get 0 solo attachments
+    And I should get 1 unit
+    And I should get 0 unit attachments
 
 
   Scenario: battlegroup and unit
@@ -44,6 +52,14 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
       """
     When I parse the list
     Then I should get a parsed list
+    And I should get 1 warnoun
+    And I should not get a warnoun attachment
+    And I should get 1 warbj
+    And I should get 0 battle engines
+    And I should get 0 solos
+    And I should get 0 solo attachments
+    And I should get 1 unit
+    And I should get 0 unit attachments
 
 
   Scenario: a battle engine
@@ -63,6 +79,14 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
       """
     When I parse the list
     Then I should get a parsed list
+    And I should get 0 warnouns
+    And I should not get a warnoun attachment
+    And I should get 0 warbjs
+    And I should get 1 battle engine
+    And I should get 0 solos
+    And I should get 0 solo attachments
+    And I should get 0 units
+    And I should get 0 unit attachments
 
 
   Scenario: 2 battle engines
@@ -83,6 +107,14 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
       """
     When I parse the list
     Then I should get a parsed list
+    And I should get 0 warnouns
+    And I should not get a warnoun attachment
+    And I should get 0 warbjs
+    And I should get 2 battle engines
+    And I should get 0 solos
+    And I should get 0 solo attachments
+    And I should get 0 units
+    And I should get 0 unit attachments
 
 
   Scenario: a solo
@@ -102,6 +134,14 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
       """
     When I parse the list
     Then I should get a parsed list
+    And I should get 0 warnouns
+    And I should not get a warnoun attachment
+    And I should get 0 warbjs
+    And I should get 0 battle engines
+    And I should get 1 solo
+    And I should get 0 solo attachments
+    And I should get 0 units
+    And I should get 0 unit attachments
 
 
   Scenario: 2 solos
@@ -122,6 +162,14 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
       """
     When I parse the list
     Then I should get a parsed list
+    And I should get 0 warnouns
+    And I should not get a warnoun attachment
+    And I should get 0 warbjs
+    And I should get 0 battle engines
+    And I should get 2 solos
+    And I should get 0 solo attachments
+    And I should get 0 units
+    And I should get 0 unit attachments
 
 
   Scenario: solo with option
@@ -141,6 +189,14 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
       """
     When I parse the list
     Then I should get a parsed list
+    And I should get 0 warnouns
+    And I should not get a warnoun attachment
+    And I should get 0 warbjs
+    And I should get 0 battle engines
+    And I should get 1 solo
+    And I should get 0 solo attachments
+    And I should get 0 units
+    And I should get 0 unit attachments
 
 
   Scenario: lesser warlock solo
@@ -161,6 +217,14 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
       """
     When I parse the list
     Then I should get a parsed list
+    And I should get 0 warnouns
+    And I should not get a warnoun attachment
+    And I should get 0 warbjs
+    And I should get 0 battle engines
+    And I should get 1 solo
+    And I should get 1 solo attachment
+    And I should get 0 units
+    And I should get 0 unit attachments
 
 
   Scenario: 2 units
@@ -181,6 +245,14 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
       """
     When I parse the list
     Then I should get a parsed list
+    And I should get 0 warnouns
+    And I should not get a warnoun attachment
+    And I should get 0 warbjs
+    And I should get 0 battle engines
+    And I should get 0 solos
+    And I should get 0 solo attachments
+    And I should get 2 units
+    And I should get 0 unit attachments
 
 
   Scenario: a unit attachment
@@ -202,6 +274,14 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
       """
     When I parse the list
     Then I should get a parsed list
+    And I should get 0 warnouns
+    And I should not get a warnoun attachment
+    And I should get 0 warbjs
+    And I should get 0 battle engines
+    And I should get 0 solos
+    And I should get 0 solo attachments
+    And I should get 2 units
+    And I should get 1 unit attachment
 
 
   Scenario: a little of everything
@@ -234,3 +314,11 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
       """
     When I parse the list
     Then I should get a parsed list
+    And I should get 1 warnoun
+    And I should get a warnoun attachment
+    And I should get 1 warbj
+    And I should get 1 battle engine
+    And I should get 3 solos
+    And I should get 1 solo attachment
+    And I should get 2 units
+    And I should get 1 unit attachment
