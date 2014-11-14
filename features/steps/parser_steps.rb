@@ -6,7 +6,7 @@ end
 When(/^I parse the list$/) do
   @parsed_list = nil
   begin
-    @parsed_list = WarRoom::ListParser.new.parse(@list)
+    @parsed_list = WarRoom::ListParser.parse(@list)
   rescue WarRoom::ListParser::InvalidListException => e
     @invalid_list_exception = true
   else
