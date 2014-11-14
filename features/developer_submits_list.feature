@@ -284,6 +284,99 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
     And I should get 1 unit attachment
 
 
+  Scenario: 'jack marshal solo in warmachine list
+    Given a list of:
+      """
+      War Room Army
+
+      Cygnar - jack marshal solo
+
+      12 / 53 (50+3)    Warcaster(s) : 1/1    Warjack(s) : 1    Battle Engines : 0    Solos : 2    Units : 0
+
+      Artificer General Nemo - WJ: +3
+      -    Storm Chaser Adept Caitlin Finch
+
+      Archduke Alain Runewood, Lord of Fharin - PC: 3
+      -    Avenger - PC: 9
+
+      ---
+
+      GENERATED : 11/14/2014 00:22:19
+      """
+    When I parse the list
+    Then I should get a parsed list
+    And I should get 1 warnoun
+    And I should get a warnoun attachment
+    And I should get 0 warbjs
+    And I should get 0 battle engines
+    And I should get 1 solos
+    And I should get 1 solo attachments
+    And I should get 0 units
+    And I should get 0 unit attachment
+
+
+  Scenario: 'jack marshal unit
+    Given a list of:
+      """
+      War Room Army
+
+      Cygnar - jack marshal unit
+
+      7 / 53 (50+3)    Warcaster(s) : 1/1    Warjack(s) : 1    Battle Engines : 0    Solos : 1    Units : 1
+
+      Artificer General Nemo - WJ: +3
+      -    Storm Chaser Adept Caitlin Finch
+
+      Field Mechaniks - Crew Chief & 5 Grunts: 3
+      -    Charger - PC: 4
+
+      ---
+
+      GENERATED : 11/14/2014 00:21:23
+      """
+    When I parse the list
+    Then I should get a parsed list
+    And I should get 1 warnoun
+    And I should get a warnoun attachment
+    And I should get 0 warbjs
+    And I should get 0 battle engines
+    And I should get 0 solos
+    And I should get 0 solo attachments
+    And I should get 1 units
+    And I should get 1 unit attachment
+
+
+  Scenario: hordes list with a 'jack marshal solo
+    Given a list of:
+      """
+      War Room Army
+
+      Trollblood - hordes jack marshal
+
+      11 / 55 (50+5)    Warlock(s) : 1/1    Warbeast(s) : 2    Battle Engines : 0    Solos : 2    Units : 0
+
+      Borka Kegslayer - WB: +5
+      -    Pyg Keg Carrier
+
+      Raluk Moorclaw, the Ironmonger - PC: 2
+      -    Buccaneer - PC: 3
+      -    Freebooter - PC: 6
+
+      ---
+
+      GENERATED : 11/14/2014 00:39:54
+      """
+    When I parse the list
+    Then I should get a parsed list
+    And I should get 1 warnouns
+    And I should get a warnoun attachment
+    And I should get 0 warbjs
+    And I should get 0 battle engines
+    And I should get 1 solos
+    And I should get 2 solo attachments
+    And I should get 0 units
+    And I should get 0 unit attachment
+
   Scenario: a little of everything
     Given a list of:
       """
