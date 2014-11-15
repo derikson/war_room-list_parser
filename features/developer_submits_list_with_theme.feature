@@ -72,3 +72,20 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
       """
     When I parse the list
     Then I should get a parsed list
+    And I should get a theme called "Wold War"
+    And I should get a theme that is tier 4
+    And I should get the following allowed models
+      """
+      WARBEASTS
+      Circle non-character construct warbeasts
+
+      UNITS
+      Druid Stoneward & Woldstalkers, Reeves of Orboros, Sentry Stone & Mannikins, Shifting Stones, Wolves of Orboros, Death Wolves
+
+      SOLOS
+      Blackclad Wayfarer, Gallows Groves, Reeve Hunters, War Wolves
+
+      BATTLE ENGINES
+      Celestial Fulcrum
+      """
+    And I should get a tier with requirements "The army includes one or more Sentry Stone & Mannikins units." and benifits "Sentry Stones begin the game with 3 fury points."

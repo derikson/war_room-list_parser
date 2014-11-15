@@ -63,6 +63,20 @@ class WarRoom::ListParser::Transform < Parslet::Transform
   end
 
 
+  rule(name:           simple(:name),
+       tier:           simple(:tier),
+       allowed_models: simple(:allowed_models),
+       tiers:          sequence(:tiers)) do
+    WarRoom::ListParser::List::Theme.new(name, tier: Integer(tier), allowed_models: allowed_models, tiers: tiers)
+  end
+
+
+  rule(tier:         simple(:tier),
+       requirements: simple(:requirements),
+       benefits:     simple(:benefits)) do
+    WarRoom::ListParser::List::Theme::Tier.new(requirements, benefits)
+  end
+
   rule(faction:        simple(:faction),
        title:          simple(:title),
        totals:         {points:         simple(:points),
@@ -88,6 +102,7 @@ class WarRoom::ListParser::Transform < Parslet::Transform
                                   warnoun:        warnoun,
                                   battle_engines: battle_engines,
                                   solos:          solos,
-                                  units:          units)
+                                  units:          units,
+                                  theme:          theme)
   end
 end

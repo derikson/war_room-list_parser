@@ -428,3 +428,4 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
     And I should get a unit with a name of "Shifting Stones", an descriptor of "Leader & 2 Grunts", and a cost of 2
     And I should get 1 unit attachment
     And I should get a unit attachment with a name of "Stone Keeper", a descriptor of "Keeper", and a cost of 1
+    And I should not get a theme

@@ -65,14 +65,14 @@ class WarRoom::ListParser::Parser < Parslet::Parser
   rule(:theme_header)   { str('THEME: ') >> before_hyphen.as(:name) >> hyphen >> str('Tier ') >> number.as(:tier) }
   rule(:allowed_models) { ((empty_line >> str('TIER 1')).absent? >> any).repeat.as(:allowed_models) >> empty_line }
   rule(:tier) {
-    str('TIER ') >> number.as(:tier) >> (hyphen >> str('SELECTED').as(:selected)).maybe >> newline >>
+    str('TIER ') >> number.as(:tier) >> (hyphen >> str('SELECTED')).maybe >> newline >>
       str('---Requirements---') >> newline >>
       ((newline >> str('---Benefits---')).absent? >> any).repeat(1, nil).as(:requirements) >> newline >>
       str('---Benefits---') >> newline >>
       (empty_line.absent? >> any).repeat(1, nil).as(:benefits)
   }
   rule(:tiers) { (tier >> empty_line).repeat(1, nil) }
-  rule(:theme) { theme_header >> allowed_models >> tiers.as(:tiers) }
+  rule(:theme) { theme_header >> empty_line >> allowed_models >> tiers.as(:tiers) }
 
   # str('⊥').repeat.as is used just so that we get an empty array if there aren't any of the list item type
   rule(:warroom_list) {

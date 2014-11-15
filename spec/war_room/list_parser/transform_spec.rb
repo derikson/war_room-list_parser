@@ -3,34 +3,101 @@ require 'spec_helper'
 class WarRoom::ListParser
   describe Parser do
     describe '#transform' do
-        let(:list) do
-          create_list(doctor_heredoc(<<-HERE))
-            War Room Army
+      let(:list) do
+        create_list(doctor_heredoc(<<-HERE))
+          War Room Army
 
-            Circle Orboros - everything
+          Circle Orboros - everything
 
-            32 / 53 (50+3)    Warlock(s) : 1/1    Warbeast(s) : 3    Battle Engines : 1    Solos : 3    Units : 2
+          32 / 53 (50+3)    Warlock(s) : 1/1    Warbeast(s) : 3    Battle Engines : 1    Solos : 3    Units : 2
 
-            Kaya the Moonhunter - WB: +3
-            -    Druid Wilder
-            -    Argus Moonhound - PC: 4
+          Kaya the Moonhunter - WB: +3
+          -    Druid Wilder
+          -    Argus Moonhound - PC: 4
 
-            Sacral Vault - PC: 9
+          Sacral Vault - PC: 9
 
-            Blackclad Wayfarer - PC: 2
-            Una the Falconer - PC: 3
-            -    Rotterhorn Griffon - PC: 3
-            Una the Falconer <! OVER FIELD ALLOWANCE !> - PC: 3
+          Blackclad Wayfarer - PC: 2
+          Una the Falconer - PC: 3
+          -    Rotterhorn Griffon - PC: 3
+          Una the Falconer <! OVER FIELD ALLOWANCE !> - PC: 3
 
-            Sentry Stone & Mannikins - Leader & 3 Grunts: 3
-            Shifting Stones - Leader & 2 Grunts: 2
-            -    Stone Keeper - Keeper 1
+          Sentry Stone & Mannikins - Leader & 3 Grunts: 3
+          Shifting Stones - Leader & 2 Grunts: 2
+          -    Stone Keeper - Keeper 1
 
-            ---
+          ---
 
-            GENERATED : 11/10/2014 20:19:18
-          HERE
-        end
+          GENERATED : 11/10/2014 20:19:18
+        HERE
+      end
+
+      let(:theme_list) do
+        create_list(doctor_heredoc(<<-HERE))
+          War Room Army
+
+          Circle Orboros - bb bradigus
+
+          56 / 56 (50+6)    Warlock(s) : 1/1    Warbeast(s) : 7    Battle Engines : 0    Solos : 0    Units : 4
+
+          Bradigus Thorle the Runecarver - WB: +6
+          -    Wold Guardian - PC: 9
+          -    Woldwatcher - PC: 0
+          -    Woldwatcher - PC: 5
+          -    Woldwatcher - PC: 5
+          -    Woldwarden - PC: 9
+          -    Woldwarden - PC: 9
+          -    Wold Guardian - PC: 9
+
+          Sentry Stone & Mannikins - Leader & 3 Grunts: 3
+          Shifting Stones - Leader & 2 Grunts: 2
+          Shifting Stones - Leader & 2 Grunts: 2
+          Sentry Stone & Mannikins - Leader & 3 Grunts: 3
+
+          THEME: Wold War - Tier 4
+
+          WARBEASTS
+          Circle non-character construct warbeasts
+
+          UNITS
+          Druid Stoneward & Woldstalkers, Reeves of Orboros, Sentry Stone & Mannikins, Shifting Stones, Wolves of Orboros, Death Wolves
+
+          SOLOS
+          Blackclad Wayfarer, Gallows Groves, Reeve Hunters, War Wolves
+
+          BATTLE ENGINES
+          Celestial Fulcrum
+
+          TIER 1
+          ---Requirements---
+          The army can only include the models listed above.
+          ---Benefits---
+          Increase the FA of Shifting Stone units and Sentry Stone & Mannikins units by 1.
+
+          TIER 2
+          ---Requirements---
+          The army includes one or more Shifting Stone units.
+          ---Benefits---
+          You can redeploy one model/unit after both players have deployed but before the first player's first turn. The redeployed models must be placed on the table in a location they could have been deployed initially.
+
+          TIER 3
+          ---Requirements---
+          The army includes one or more Sentry Stone & Mannikins units.
+          ---Benefits---
+          Sentry Stones begin the game with 3 fury points.
+
+          TIER 4 - SELECTED
+          ---Requirements---
+          The only living model in the army is Bradigus Thorle the Runecarver.
+          ---Benefits---
+          Add a Woldwatcher to Thorle's battlegroup free of cost.
+
+          ---
+
+          GENERATED : 10/29/2014 10:22:20
+        HERE
+      end
+
 
       describe 'list' do
         it 'has a title' do
@@ -71,6 +138,10 @@ class WarRoom::ListParser
 
         it 'can have units' do
           expect(list.units).to_not be_empty
+        end
+
+        it 'can have a theme' do
+          expect(theme_list.theme).to_not be_nil
         end
       end
 
@@ -158,6 +229,34 @@ class WarRoom::ListParser
 
         it 'has a cost' do
           expect(list.units[1].attachments[0].cost).to eq(1)
+        end
+      end
+
+      describe 'theme' do
+        it 'has a name' do
+          expect(theme_list.theme.name).to eq('Wold War')
+        end
+
+        it 'has a tier' do
+          expect(theme_list.theme.tier).to eq(4)
+        end
+
+        it 'has allowed models' do
+          expect(theme_list.theme.allowed_models).to eq("WARBEASTS\r\nCircle non-character construct warbeasts\r\n\r\nUNITS\r\nDruid Stoneward & Woldstalkers, Reeves of Orboros, Sentry Stone & Mannikins, Shifting Stones, Wolves of Orboros, Death Wolves\r\n\r\nSOLOS\r\nBlackclad Wayfarer, Gallows Groves, Reeve Hunters, War Wolves\r\n\r\nBATTLE ENGINES\r\nCelestial Fulcrum")
+        end
+
+        it 'has 4 tiers' do
+          expect(theme_list.theme.tiers.length).to eq(4)
+        end
+
+        describe 'tier' do
+          it 'has requirements' do
+            expect(theme_list.theme.tiers[2].requirements).to eq('The army includes one or more Sentry Stone & Mannikins units.')
+          end
+
+          it 'has benefits' do
+            expect(theme_list.theme.tiers[2].benefits).to eq('Sentry Stones begin the game with 3 fury points.')
+          end
         end
       end
     end
