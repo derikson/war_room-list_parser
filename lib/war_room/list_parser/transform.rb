@@ -65,12 +65,29 @@ class WarRoom::ListParser::Transform < Parslet::Transform
 
   rule(faction:        simple(:faction),
        title:          simple(:title),
-       totals:         subtree(:totals),
+       totals:         {points:         simple(:points),
+                        max_points:     simple(:max_points),
+                        point_level:    simple(:point_level),
+                        warbj_points:   simple(:warbj_points),
+                        warnouns:       simple(:total_warnouns),
+                        warbjs:         simple(:total_warbjs),
+                        battle_engines: simple(:total_battle_engines),
+                        solos:          simple(:total_solos),
+                        units:          simple(:total_units)},
        warnoun:        simple(:warnoun),
        battle_engines: sequence(:battle_engines),
        solos:          sequence(:solos),
        units:          sequence(:units),
        theme:          subtree(:theme)) do
-    WarRoom::ListParser::List.new(title: title, faction: faction, warnoun: warnoun, battle_engines: battle_engines, solos: solos, units: units)
+    WarRoom::ListParser::List.new(title:          title,
+                                  faction:        faction,
+                                  point_level:    Integer(point_level),
+                                  points:         Integer(points),
+                                  max_points:     Integer(max_points),
+                                  warbj_points:   Integer(warbj_points),
+                                  warnoun:        warnoun,
+                                  battle_engines: battle_engines,
+                                  solos:          solos,
+                                  units:          units)
   end
 end

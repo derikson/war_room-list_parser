@@ -26,7 +26,8 @@ class WarRoom::ListParser::Parser < Parslet::Parser
   rule(:title) { match['^\n\r'].repeat(1, nil) }
 
   rule(:totals) {
-    number >> str(' / ') >> number >> space >> str('(') >> number >> str('+') >> number >> str(')') >> space >>
+    number.as(:points) >> str(' / ') >> number.as(:max_points) >> space >>
+      str('(') >> number.as(:point_level) >> str('+') >> number.as(:warbj_points) >> str(')') >> space >>
       (str('Warcaster(s)')   | str('Warlock(s)' )) >> total.as(:warnouns)       >> str('/') >> number >> space >>
       (str('Warjack(s)')     | str('Warbeast(s)')) >> total.as(:warbjs)         >> space >>
        str('Battle Engines')                       >> total.as(:battle_engines) >> space >>

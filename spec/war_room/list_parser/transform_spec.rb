@@ -41,6 +41,22 @@ class WarRoom::ListParser
           expect(list.faction).to eq('Circle Orboros')
         end
 
+        it 'has a point level' do
+          expect(list.point_level).to eq(50)
+        end
+
+        it 'has points' do
+          expect(list.points).to eq(32)
+        end
+
+        it 'has a max points' do
+          expect(list.max_points).to eq(53)
+        end
+
+        it 'has warbj points' do
+          expect(list.warbj_points).to eq(3)
+        end
+
         it 'can have a warnoun' do
           expect(list.warnoun).to_not be_nil
         end

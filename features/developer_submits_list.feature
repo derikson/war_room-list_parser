@@ -408,6 +408,10 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
     When I parse the list
     Then I should get a parsed list
     And I should get a list title of "everything"
+    And I should get a list with a point level of 50
+    And I should get a list with 32 points
+    And I should get a list with a max points of 53
+    And I should get a list 3 warbj points
     And I should get a faction of "Circle Orboros"
     And I should get 1 warnoun
     And I should get a warnoun with a name of "Kaya the Moonhunter" and 3 points

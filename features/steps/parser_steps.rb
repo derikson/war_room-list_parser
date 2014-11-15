@@ -127,3 +127,23 @@ end
 Then(/^I should get a faction of "(.*?)"$/) do |faction|
   expect(@parsed_list.faction).to eq(faction)
 end
+
+
+Then(/^I should get a list with a point level of (\d+)$/) do |n|
+  expect(@parsed_list.point_level).to eq(n.to_i)
+end
+
+
+Then(/^I should get a list with (\d+) points$/) do |n|
+  expect(@parsed_list.points).to eq(n.to_i)
+end
+
+
+Then(/^I should get a list with a max points of (\d+)$/) do |n|
+  expect(@parsed_list.max_points).to eq(n.to_i)
+end
+
+
+Then(/^I should get a list (\d+) warbj points$/) do |n|
+  expect(@parsed_list.warbj_points).to eq(n.to_i)
+end
