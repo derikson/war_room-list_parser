@@ -6,7 +6,14 @@ module HeredocHelpers
   end
 end
 
+module ListHelpers
+  def create_list list_text
+    WarRoom::ListParser::Transform.new.apply(WarRoom::ListParser::Parser.new.parse(list_text))
+  end
+end
+
 RSpec.configure do |config|
   config.include HeredocHelpers
+  config.include ListHelpers
 end
 

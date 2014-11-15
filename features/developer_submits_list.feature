@@ -407,11 +407,20 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
       """
     When I parse the list
     Then I should get a parsed list
+    And I should get a list title of "everything"
+    And I should get a faction of "Circle Orboros"
     And I should get 1 warnoun
-    And I should get a warnoun attachment
+    And I should get a warnoun with a name of "Kaya the Moonhunter" and 3 points
+    And I should get a warnoun attachment called "Druid Wilder"
     And I should get 1 warbj
+    And I should get a warbj with a name of "Argus Moonhound" and a cost of 4
     And I should get 1 battle engine
+    And i should get a battle engine with a name of "Sacral Vault" and a cost of 9
     And I should get 3 solos
+    And I should get a solo with a name of "Una the Falconer" and a cost of 3
     And I should get 1 solo attachment
+    And I should get a solo attachment with a name of "Rotterhorn Griffon" and a cost of 3
     And I should get 2 units
+    And I should get a unit with a name of "Shifting Stones", an descriptor of "Leader & 2 Grunts", and a cost of 2
     And I should get 1 unit attachment
+    And I should get a unit attachment with a name of "Stone Keeper", a descriptor of "Keeper", and a cost of 1

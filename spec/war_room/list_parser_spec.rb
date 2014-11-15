@@ -33,20 +33,6 @@ module WarRoom
       it %q{raises InvalidListException when there isn't a list} do
         expect { ListParser.parse('') }.to raise_error(ListParser::InvalidListException)
       end
-
-      it %q{raises InvalidListException when there isn't anything in a list} do
-        expect { ListParser.parse(doctor_heredoc(<<-HERE)) }.to raise_error(ListParser::InvalidListException)
-          War Room Army
-
-          Khador - empty list
-
-          0 / 50 (50+0)    Warcaster(s) : 0/1    Warjack(s) : 0    Battle Engines : 0    Solos : 0    Units : 0
-
-          ---
-
-          GENERATED : 11/09/2014 10:46:12
-        HERE
-      end
     end
   end
 end
