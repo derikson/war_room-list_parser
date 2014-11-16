@@ -99,6 +99,23 @@ class WarRoom::ListParser
       end
 
 
+      let(:contract_list) do
+        create_list(doctor_heredoc(<<-HERE))
+          War Room Army
+
+          Mercenaries - Fourstar Syndicate - contract
+
+          0 / 55 (50+5)    Warcaster(s) : 1/1    Warjack(s) : 0    Battle Engines : 0    Solos : 0    Units : 0
+
+          Captain Bartolo Montador - WJ: +5
+
+          ---
+
+          GENERATED : 11/15/2014 23:17:11
+        HERE
+      end
+
+
       describe 'list' do
         it 'has a title' do
           expect(list.title).to eq('everything')
@@ -106,6 +123,14 @@ class WarRoom::ListParser
 
         it 'has a faction' do
           expect(list.faction).to eq('Circle Orboros')
+        end
+
+        it 'can have a contract or pact' do
+          expect(contract_list.contract_or_pact).to eq('Fourstar Syndicate')
+        end
+
+        it 'can be without a contract or pact' do
+          expect(list.contract_or_pact).to be_nil
         end
 
         it 'has a point level' do

@@ -20,3 +20,8 @@ end
 Then(/^I should get a tier with requirements "(.*?)" and benifits "(.*?)"$/) do |reqs, bens|
   expect(@parsed_list.theme.tiers.find { |t| t.requirements == reqs && t.benefits == bens }).to_not be_nil
 end
+
+
+Then(/^I should get a (?:contract|pact) called "(.*?)"$/) do |contract_or_pact|
+  expect(@parsed_list.contract_or_pact).to eq(contract_or_pact)
+end

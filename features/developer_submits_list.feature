@@ -377,7 +377,52 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
     And I should get 0 units
     And I should get 0 unit attachment
 
-  Scenario: a little of everything
+
+  Scenario: mercanary list with a contract
+    Given a list of:
+      """
+      War Room Army
+
+      Mercenaries - Fourstar Syndicate - contract
+
+      0 / 55 (50+5)    Warcaster(s) : 1/1    Warjack(s) : 0    Battle Engines : 0    Solos : 0    Units : 0
+
+      Captain Bartolo Montador - WJ: +5
+
+      ---
+
+      GENERATED : 11/15/2014 23:17:11
+      """
+    When I parse the list
+    Then I should get a parsed list
+    And I should get a faction of "Mercenaries"
+    And I should get a contract called "Fourstar Syndicate"
+    And I should get a list title of "contract"
+
+
+  Scenario: minion list with a pact
+    Given a list of:
+      """
+      War Room Army
+
+      Minions - Blindwater Congregation - pact
+
+      0 / 56 (50+6)    Warlock(s) : 1/1    Warbeast(s) : 0    Battle Engines : 0    Solos : 0    Units : 0
+
+      Bloody Barnabas - WB: +6
+
+      ---
+
+      GENERATED : 11/15/2014 23:15:54
+      """
+    When I parse the list
+    Then I should get a parsed list
+    And I should get a faction of "Minions"
+    And I should get a pact called "Blindwater Congregation"
+    And I should get a list title of "pact"
+
+
+  Scenario: a list with a little of everything
     Given a list of:
       """
       War Room Army
