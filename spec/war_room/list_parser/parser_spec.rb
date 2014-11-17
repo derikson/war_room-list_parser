@@ -3,6 +3,20 @@ require 'spec_helper'
 class WarRoom::ListParser
   describe Parser do
     describe '#parse' do
+      it 'throws an exception on an empty list' do
+        expect { Parser.new.parse(doctor_heredoc(<<-HERE)) }.to raise_error(Parslet::ParseFailed)
+          War Room Army
+
+          Khador - empty list
+
+          0 / 50 (50+0)    Warcaster(s) : 0/1    Warjack(s) : 0    Battle Engines : 0    Solos : 0    Units : 0
+
+          ---
+
+          GENERATED : 11/09/2014 10:46:12
+        HERE
+      end
+
       it 'parses a list' do
         Parser.new.parse(doctor_heredoc(<<-HERE))
           War Room Army
