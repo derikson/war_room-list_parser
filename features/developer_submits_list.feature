@@ -23,8 +23,7 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
     When I parse the list
     Then I should get a parsed list
     And I should get 0 warnouns
-    And I should not get a warnoun attachment
-    And I should get 0 warbjs
+    And I should get a combined total of 0 warnoun attachments and warnoun warbjs
     And I should get 0 battle engines
     And I should get 0 solos
     And I should get 0 solo attachments
@@ -53,8 +52,7 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
     When I parse the list
     Then I should get a parsed list
     And I should get 1 warnoun
-    And I should not get a warnoun attachment
-    And I should get 1 warbj
+    And I should get a combined total of 1 warnoun attachments and warnoun warbjs
     And I should get 0 battle engines
     And I should get 0 solos
     And I should get 0 solo attachments
@@ -80,8 +78,7 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
     When I parse the list
     Then I should get a parsed list
     And I should get 0 warnouns
-    And I should not get a warnoun attachment
-    And I should get 0 warbjs
+    And I should get a combined total of 0 warnoun attachments and warnoun warbjs
     And I should get 1 battle engine
     And I should get 0 solos
     And I should get 0 solo attachments
@@ -108,8 +105,7 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
     When I parse the list
     Then I should get a parsed list
     And I should get 0 warnouns
-    And I should not get a warnoun attachment
-    And I should get 0 warbjs
+    And I should get a combined total of 0 warnoun attachments and warnoun warbjs
     And I should get 2 battle engines
     And I should get 0 solos
     And I should get 0 solo attachments
@@ -135,8 +131,7 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
     When I parse the list
     Then I should get a parsed list
     And I should get 0 warnouns
-    And I should not get a warnoun attachment
-    And I should get 0 warbjs
+    And I should get a combined total of 0 warnoun attachments and warnoun warbjs
     And I should get 0 battle engines
     And I should get 1 solo
     And I should get 0 solo attachments
@@ -163,8 +158,7 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
     When I parse the list
     Then I should get a parsed list
     And I should get 0 warnouns
-    And I should not get a warnoun attachment
-    And I should get 0 warbjs
+    And I should get a combined total of 0 warnoun attachments and warnoun warbjs
     And I should get 0 battle engines
     And I should get 2 solos
     And I should get 0 solo attachments
@@ -190,8 +184,7 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
     When I parse the list
     Then I should get a parsed list
     And I should get 0 warnouns
-    And I should not get a warnoun attachment
-    And I should get 0 warbjs
+    And I should get a combined total of 0 warnoun attachments and warnoun warbjs
     And I should get 0 battle engines
     And I should get 1 solo
     And I should get 0 solo attachments
@@ -218,8 +211,7 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
     When I parse the list
     Then I should get a parsed list
     And I should get 0 warnouns
-    And I should not get a warnoun attachment
-    And I should get 0 warbjs
+    And I should get a combined total of 0 warnoun attachments and warnoun warbjs
     And I should get 0 battle engines
     And I should get 1 solo
     And I should get 1 solo attachment
@@ -246,8 +238,7 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
     When I parse the list
     Then I should get a parsed list
     And I should get 0 warnouns
-    And I should not get a warnoun attachment
-    And I should get 0 warbjs
+    And I should get a combined total of 0 warnoun attachments and warnoun warbjs
     And I should get 0 battle engines
     And I should get 0 solos
     And I should get 0 solo attachments
@@ -275,8 +266,7 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
     When I parse the list
     Then I should get a parsed list
     And I should get 0 warnouns
-    And I should not get a warnoun attachment
-    And I should get 0 warbjs
+    And I should get a combined total of 0 warnoun attachments and warnoun warbjs
     And I should get 0 battle engines
     And I should get 0 solos
     And I should get 0 solo attachments
@@ -306,8 +296,7 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
     When I parse the list
     Then I should get a parsed list
     And I should get 1 warnoun
-    And I should get a warnoun attachment
-    And I should get 0 warbjs
+    And I should get a combined total of 1 warnoun attachments and warnoun warbjs
     And I should get 0 battle engines
     And I should get 1 solos
     And I should get 1 solo attachments
@@ -337,8 +326,7 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
     When I parse the list
     Then I should get a parsed list
     And I should get 1 warnoun
-    And I should get a warnoun attachment
-    And I should get 0 warbjs
+    And I should get a combined total of 1 warnoun attachments and warnoun warbjs
     And I should get 0 battle engines
     And I should get 0 solos
     And I should get 0 solo attachments
@@ -369,8 +357,7 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
     When I parse the list
     Then I should get a parsed list
     And I should get 1 warnouns
-    And I should get a warnoun attachment
-    And I should get 0 warbjs
+    And I should get a combined total of 1 warnoun attachments and warnoun warbjs
     And I should get 0 battle engines
     And I should get 1 solos
     And I should get 2 solo attachments
@@ -460,9 +447,9 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
     And I should get a faction of "Circle Orboros"
     And I should get 1 warnoun
     And I should get a warnoun with a name of "Kaya the Moonhunter" and 3 points
-    And I should get a warnoun attachment called "Druid Wilder"
-    And I should get 1 warbj
-    And I should get a warbj with a name of "Argus Moonhound" and a cost of 4
+    And I should get a combined total of 2 warnoun attachments and warnoun warbjs
+    And I should get a warnoun attachment or warnoun warbj with a name of "Druid Wilder"
+    And I should get a warnoun attachment or warnoun warbj with a name of "Argus Moonhound" and a cost of 4
     And I should get 1 battle engine
     And i should get a battle engine with a name of "Sacral Vault" and a cost of 9
     And I should get 3 solos

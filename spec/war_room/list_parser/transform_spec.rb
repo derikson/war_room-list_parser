@@ -175,22 +175,24 @@ class WarRoom::ListParser
           expect(list.warnoun.to_s).to eq('Kaya the Moonhunter')
         end
 
-        it 'can have an attachment' do
-          expect(list.warnoun.attachment).to eq('Druid Wilder')
+        it 'can have attachments' do
+          expect(list.warnoun.attachments.length).to eq(2)
         end
+      end
 
-        it 'can have warbjs' do
-          expect(list.warnoun.warbjs.length).to eq(1)
+      describe 'warnoun attachment' do
+        it 'has a name' do
+          expect(list.warnoun.attachments[0].name).to eq('Druid Wilder')
         end
       end
 
       describe 'warbj' do
         it 'has a name' do
-          expect(list.warnoun.warbjs[0].name).to eq('Argus Moonhound')
+          expect(list.warnoun.attachments[1].name).to eq('Argus Moonhound')
         end
 
         it 'has a cost' do
-          expect(list.warnoun.warbjs[0].cost).to eq(4)
+          expect(list.warnoun.attachments[1].cost).to eq(4)
         end
       end
 
@@ -213,6 +215,10 @@ class WarRoom::ListParser
 
         it 'has a cost' do
           expect(list.solos[0].cost).to eq(2)
+        end
+
+        it 'can have attachments' do
+          expect(list.solos[1].attachments.length).to eq(1)
         end
       end
 
@@ -239,6 +245,10 @@ class WarRoom::ListParser
 
         it 'has a cost' do
           expect(list.units[1].cost).to eq(2)
+        end
+
+        it 'can have attachments' do
+          expect(list.units[1].attachments.length).to eq(1)
         end
       end
 

@@ -34,8 +34,8 @@ Then(/^I should get (\d+) warnouns?$/) do |n|
 end
 
 Then(/^I should get a warnoun with a name of "(.*?)" and (\d+) points$/) do |name, points|
-  expect(@parsed_list.warnoun.name  ).to eq(name)
-  expect(@parsed_list.warnoun.points).to eq(points.to_i)
+  expect(@parsed_list.warnoun.name        ).to eq(name)
+  expect(@parsed_list.warnoun.warbj_points).to eq(points.to_i)
 end
 
 
@@ -44,28 +44,18 @@ Then(/^I should get 1 warnoun called "(.*?)"$/) do |name|
 end
 
 
-Then(/^I should not get a warnoun attachment$/) do
-  expect(@parsed_list.warnoun && @parsed_list.warnoun.attachment).to be_nil
+Then(/^I should get a combined total of (\d+) warnoun attachments and warnoun warbjs$/) do |n|
+  expect(@parsed_list.warnoun ? @parsed_list.warnoun.attachments.length : 0).to eq(n.to_i)
 end
 
 
-Then(/^I should get a warnoun attachment$/) do
-  expect(@parsed_list.warnoun && @parsed_list.warnoun.attachment).to_not be_nil
+Then(/^I should get a warnoun attachment or warnoun warbj with a name of "(.*?)"$/) do |name|
+  expect(@parsed_list.warnoun.attachments.find { |warbj| warbj.name == name }).to_not be_nil
 end
 
 
-Then(/^I should get a warnoun attachment called "(.*?)"$/) do |attachment|
-  expect(@parsed_list.warnoun && @parsed_list.warnoun.attachment).to eq(attachment)
-end
-
-
-Then(/^I should get (\d+) warbjs?$/) do |n|
-  expect(@parsed_list.warnoun ? @parsed_list.warnoun.warbjs.length : 0).to eq(n.to_i)
-end
-
-
-Then(/^I should get a warbj with a name of "(.*?)" and a cost of (\d+)$/) do |name, cost|
-  expect(@parsed_list.warnoun.warbjs.find { |warbj| warbj.name == name && warbj.cost == cost.to_i }).to_not be_nil
+Then(/^I should get a warnoun attachment or warnoun warbj with a name of "(.*?)" and a cost of (\d+)$/) do |name, cost|
+  expect(@parsed_list.warnoun.attachments.find { |warbj| warbj.name == name && warbj.cost == cost.to_i }).to_not be_nil
 end
 
 

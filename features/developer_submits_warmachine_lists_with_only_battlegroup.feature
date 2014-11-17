@@ -23,8 +23,7 @@ Feature: developer submits a battlegroup-only, Warmachine War Room list
     When I parse the list
     Then I should get a parsed list
     And I should get 1 warnoun
-    And I should not get a warnoun attachment
-    And I should get 0 warbjs
+    And I should get a combined total of 0 warnoun attachments and warnoun warbjs
     And I should get 0 battle engines
     And I should get 0 solos
     And I should get 0 units
@@ -50,8 +49,7 @@ Feature: developer submits a battlegroup-only, Warmachine War Room list
     When I parse the list
     Then I should get a parsed list
     And I should get 1 warnoun
-    And I should get a warnoun attachment
-    And I should get 0 warbjs
+    And I should get a combined total of 1 warnoun attachments and warnoun warbjs
 
 
   Scenario: warcaster with a warcaster attachment and a 'jack
@@ -74,8 +72,7 @@ Feature: developer submits a battlegroup-only, Warmachine War Room list
     When I parse the list
     Then I should get a parsed list
     And I should get 1 warnoun
-    And I should get a warnoun attachment
-    And I should get 1 warbj
+    And I should get a combined total of 2 warnoun attachments and warnoun warbjs
 
 
   Scenario: warcaster with a warcaster attachment and 2 'jacks
@@ -99,8 +96,7 @@ Feature: developer submits a battlegroup-only, Warmachine War Room list
     When I parse the list
     Then I should get a parsed list
     And I should get 1 warnoun
-    And I should get a warnoun attachment
-    And I should get 2 warbjs
+    And I should get a combined total of 3 warnoun attachments and warnoun warbjs
 
 
   Scenario: warcaster with a 'jack attachment
@@ -121,8 +117,7 @@ Feature: developer submits a battlegroup-only, Warmachine War Room list
     When I parse the list
     Then I should get a parsed list
     And I should get 1 warnoun
-    And I should not get a warnoun attachment
-    And I should get 0 warbjs
+    And I should get a combined total of 0 warnoun attachments and warnoun warbjs
 
 
   Scenario: warcaster with a 'jack attachment and another 'jack
@@ -144,5 +139,4 @@ Feature: developer submits a battlegroup-only, Warmachine War Room list
     When I parse the list
     Then I should get a parsed list
     And I should get 1 warnoun
-    And I should not get a warnoun attachment
-    And I should get 1 warbj
+    And I should get a combined total of 1 warnoun attachments and warnoun warbjs

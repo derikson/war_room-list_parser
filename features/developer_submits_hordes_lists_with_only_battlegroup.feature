@@ -23,8 +23,7 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
     When I parse the list
     Then I should get a parsed list
     And I should get 1 warnoun called "Borka, Vengeance of the Rimeshaws"
-    And I should not get a warnoun attachment
-    And I should get 0 warbjs
+    And I should get a combined total of 0 warnoun attachments and warnoun warbjs
     And I should get 0 battle engines
     And I should get 0 solos
     And I should get 0 units
@@ -49,9 +48,8 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
       """
     When I parse the list
     Then I should get a parsed list
-    And I should get 1 warnoun called "Borka Kegslayer"
-    And I should get a warnoun attachment called "Pyg Keg Carrier"
-    And I should get 0 warbjs
+    And I should get a warnoun attachment or warnoun warbj with a name of "Pyg Keg Carrier"
+    And I should get a combined total of 1 warnoun attachments and warnoun warbjs
 
 
   Scenario: warlock with a warlock attachment and a 'beast
@@ -74,8 +72,7 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
     When I parse the list
     Then I should get a parsed list
     And I should get 1 warnoun
-    And I should get a warnoun attachment
-    And I should get 1 warbj
+    And I should get a combined total of 2 warnoun attachments and warnoun warbjs
 
 
   Scenario: warlock with a warlock attachment and 2 'beasts
@@ -99,8 +96,7 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
     When I parse the list
     Then I should get a parsed list
     And I should get 1 warnoun
-    And I should get a warnoun attachment
-    And I should get 2 warbjs
+    And I should get a combined total of 3 warnoun attachments and warnoun warbjs
 
 
   Scenario: warlock with a 'beast attachment
@@ -121,8 +117,7 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
     When I parse the list
     Then I should get a parsed list
     And I should get 1 warnoun
-    And I should not get a warnoun attachment
-    And I should get 0 warbjs
+    And I should get a combined total of 0 warnoun attachments and warnoun warbjs
 
 
   Scenario: warlock with a 'beast attachment and another 'beast
@@ -144,8 +139,7 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
     When I parse the list
     Then I should get a parsed list
     And I should get 1 warnoun
-    And I should not get a warnoun attachment
-    And I should get 1 warbj
+    And I should get a combined total of 1 warnoun attachments and warnoun warbjs
 
 
   Scenario: warlock with a 'beast pack
@@ -167,5 +161,4 @@ Feature: developer submits a battlegroup-only, Hordes War Room list
     When I parse the list
     Then I should get a parsed list
     And I should get 1 warnoun
-    And I should not get a warnoun attachment
-    And I should get 1 warbj
+    And I should get a combined total of 1 warnoun attachments and warnoun warbjs
