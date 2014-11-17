@@ -5,29 +5,44 @@ class WarRoom::ListParser::Transform < Parslet::Transform
     WarRoom::ListParser::List::Item.new(name)
   end
 
-  rule(warnoun:    {name: simple(:name), points: simple(:points)},
-       attachment: simple(:attachment),
-       warbjs:     sequence(:warbjs)) do
+  rule(warnoun:            {name: simple(:name), points: simple(:points)},
+       warnoun_attachment: simple(:attachment),
+       warbjs:             sequence(:warbjs)) do
     WarRoom::ListParser::List::Item.new(name, warbj_points: Integer(points), attachments: (attachment ? [attachment] : []) + warbjs)
   end
 
 
-  rule(warnoun:    {name: simple(:name), points: simple(:points)},
-       attachment: simple(:attachment),
-       warbjs:     simple(:warbjs)) do
+  rule(warnoun:            {name: simple(:name), points: simple(:points)},
+       warnoun_attachment: simple(:attachment),
+       warbjs:             simple(:warbjs)) do
     WarRoom::ListParser::List::Item.new(name, warbj_points: Integer(points), attachments: attachment ? [attachment] : [])
   end
 
 
-  rule(warbj_name: simple(:name),
-       cost:       simple(:cost)) do
+  rule(name: simple(:name),
+       cost: simple(:cost)) do
     WarRoom::ListParser::List::Item.new(name, cost: Integer(cost))
   end
 
 
-  rule(battle_engine_name: simple(:name),
-       cost:               simple(:cost)) do
-    WarRoom::ListParser::List::Item.new(name, cost: Integer(cost))
+  rule(name:        simple(:name),
+       cost:        simple(:cost),
+       attachments: sequence(:attachments)) do
+    WarRoom::ListParser::List::Item.new(name, cost: Integer(cost), attachments: attachments)
+  end
+
+
+  rule(name:        simple(:name),
+       descriptor:  simple(:descriptor),
+       cost:        simple(:cost)) do
+    WarRoom::ListParser::List::Item.new(name, cost: Integer(cost), descriptor: descriptor)
+  end
+
+  rule(name:        simple(:name),
+       descriptor:  simple(:descriptor),
+       cost:        simple(:cost),
+       attachments: sequence(:attachments)) do
+    WarRoom::ListParser::List::Item.new(name, cost: Integer(cost), descriptor: descriptor, attachments: attachments)
   end
 
 
@@ -39,27 +54,6 @@ class WarRoom::ListParser::Transform < Parslet::Transform
 
 
   rule(solo_attachment_name: simple(:name),
-       cost:                 simple(:cost)) do
-    WarRoom::ListParser::List::Item.new(name, cost: Integer(cost))
-  end
-
-
-  rule(name:             simple(:name),
-       cost:             simple(:cost),
-       descriptor:       simple(:descriptor),
-       unit_attachments: sequence(:attachments)) do
-    WarRoom::ListParser::List::Item.new(name, cost: Integer(cost), descriptor: descriptor, attachments: attachments)
-  end
-
-
-  rule(unit_attachment_name: simple(:name),
-       cost:                 simple(:cost),
-       descriptor:           simple(:descriptor)) do
-    WarRoom::ListParser::List::Item.new(name, cost: Integer(cost), descriptor: descriptor)
-  end
-
-
-  rule(unit_attachment_name: simple(:name),
        cost:                 simple(:cost)) do
     WarRoom::ListParser::List::Item.new(name, cost: Integer(cost))
   end
@@ -78,6 +72,7 @@ class WarRoom::ListParser::Transform < Parslet::Transform
        benefits:     simple(:benefits)) do
     WarRoom::ListParser::List::Theme::Tier.new(requirements, benefits)
   end
+
 
   rule(faction:          simple(:faction),
        contract_or_pact: simple(:contract_or_pact),
