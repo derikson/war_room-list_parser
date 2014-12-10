@@ -1,6 +1,6 @@
 # WarRoom::ListParser
 
-TODO: Write a gem description
+WarRoom::ListParser is a library for parsing Warmachines and Hordes lists output by the email feature of the War Room application.
 
 ## Installation
 
